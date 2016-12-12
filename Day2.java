@@ -4,8 +4,9 @@ import java.io.*;
 
 public class Day2{
 	public static String bathroomCode(ArrayList<String> inputArr){
-		String code = "hello";
+		String code = "";
 		int pos = 5;
+		int chngPos = 0;
 
 		for(String s : inputArr){
 			for(int i = 0; i < s.length(); i ++){
@@ -13,21 +14,39 @@ public class Day2{
 				// System.out.println(c);
 				switch(c){
 					case 'U':
-						System.out.println("Moving up");
+						// System.out.println("Moving up");
+						if((pos - 3) >= 1){
+							pos = pos -3;
+						}
 						break;
 					case 'D':
-						System.out.println("Moving down");
+						// System.out.println("Moving down");
+						if((pos + 3) <= 9){
+							pos = pos + 3;
+						}
 						break;
 					case 'L':
-						System.out.println("Moving left");
+						// System.out.println("Moving left");
+						chngPos = pos - 1;
+						if(chngPos != 0 && chngPos != 3 && chngPos != 6){
+							pos = pos - 1;
+						}
 						break;
 					case 'R':
-						System.out.println("Moving right");
+						// System.out.println("Moving right");
+						chngPos = pos + 1;
+						if(chngPos != 4 && chngPos != 7 && chngPos != 10){
+							pos = pos + 1;
+						}
 						break;
 					default:
 						System.out.println("Invalid move");
 				}
+			// System.out.println("Current position:" + pos);
+
 			}
+			// System.out.println("Current position:" + pos);
+			code = code + pos;
 		}
 		return code;
 	}
