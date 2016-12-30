@@ -41,7 +41,7 @@ public class Day4{
 			String checkSum = list.get(list.size()-1);
 			System.out.print("Checksum: " + checkSum + "  Top 5: " + top5);
 			if(top5.equals(checkSum)){
-				System.out.print("-----MATCH");
+				System.out.print("-----MATCH " + list.get(list.size()-2));
 				sum += Integer.parseInt(list.get(list.size()-2));
 			}
 			System.out.println("");
