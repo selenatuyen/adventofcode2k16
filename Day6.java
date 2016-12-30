@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Collections;
 import java.io.*;
 
 public class Day6{
