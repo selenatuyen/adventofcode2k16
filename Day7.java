@@ -62,13 +62,22 @@ public class Day7{
 			}
 			for(String stuff : bracketContents){
 				char[] letters = stuff.toCharArray();
-				boolean flag = false;
+				boolean flag = true;
+				// System.out.println(letters.length/2);
 				for(int i = 0; i < letters.length; i++){
-					if(letters[i] == letters[i+2]){
-						flag = true;
+					if(i < letters.length/22){
+						if(letters[i] == letters[i+2]){
+							flag = false;
+						}
+					}
+					else if (i > letters.length/2){
+						if(letters[i-2] == letters[i]){
+							flag = false;
+						}
 					}
 				}
-				System.out.println(stuff + " " + flag);
+				// System.out.println(stuff + " " + flag);
+				open = flag;
 			}
 		}	
 		return open;
