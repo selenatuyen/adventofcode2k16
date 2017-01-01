@@ -13,25 +13,52 @@ public class Day8{
 	}
 
 	public static char[][] rotate(char[][] screen, char dim, int num, int val, int x, int y){
+		char[][] copy = new char[y][x];
+		for(int i = 0; i < y; i++){
+			for(int j = 0; j < x; j++){
+				copy[i][j] = screen[i][j];
+			}
+		}
+
 		if(dim == 'y'){
+			int thresh = (x % val) - 1;
+			// System.out.println("thresh :" + thresh);
+			for(int i = 0; i < y; i++){
+				if(i == num){
+					for(int j = 0; j < x; j++){
+						// System.out.println("j val: " + j);	
+						if(j <= thresh){
+							int jval = j + val;	
+							// System.out.println("new coordinate:" + i + "," + jval + " current data: " + copy[i][j]);
+							screen[i][jval] = copy[i][j];
+						}
+						else if(j > thresh){
+							int jval = (j + val) % x;
+							// System.out.println("new coordinate:" + i + "," + jval + " current data: " + copy[i][j]);
+							screen[i][jval] = copy[i][j];
+						}
+					}
+					return screen;
+				}
+			}
 
 		}
 		else if(dim == 'x'){
+			int thresh = (y % val) - 1;
 			for(int j = 0; j < x; j++){
 				if(j == num){
 					for(int i = 0; i < y; i++){
-						char temp;
-						if(i == 0){
-							temp = screen[i][j];
-							screen[i][j] = screen[y-val][x-val];
-							screen[i+val][j+val] = temp;
+						if(j <= thresh){
+							int ival = i + val;
+							screen[ival][j] = copy[i][j];
 						}
-						else{
-							temp = screen[i][j];
-							screen[i][j] = screen[i-val][j-val];
+						else if(j > thresh){
+							int ival = (i + val) % y;
+							screen[ival][j] = copy[i][j];
 						}
 
 					}
+					return screen;
 				}
 			}	
 		}
@@ -39,18 +66,16 @@ public class Day8{
 	}
 
 	public static int pixelCount(List<String> input){
-		int count = 0;
 		int x = 7;
 		int y = 3;
-		char[][] screen = new char[y][x];
+		char[][] screen = new char[y][x]; //initialize screen to off pixels
 		for(int i = 0; i < y; i++){
 			for(int j = 0; j < x; j++){
 				screen[i][j] = '.';
 			}
 		}
-		displayScreen(screen, x, y);
+		// displayScreen(screen, x, y);
 		for(String s : input){
-
 			char[] com = parseCommand(s);
 			if(com[0] == 'r'){
 				screen = rect(screen, Character.getNumericValue(com[1]), Character.getNumericValue(com[2]));
@@ -58,7 +83,19 @@ public class Day8{
 			else if(com[0] == 'x' || com[0] == 'y'){
 				screen = rotate(screen, com[0], Character.getNumericValue(com[1]), Character.getNumericValue(com[2]), x, y);
 			}
-			displayScreen(screen, x, y);
+			// displayScreen(screen, x, y);
+		}
+		return countPixel(screen, x, y);
+	}
+
+	public static int countPixel(char[][] screen, int x, int y){
+		int count = 0;
+		for(int i = 0; i < y; i++){
+			for(int j = 0; j < x; j++){
+				if(screen[i][j] == '#'){
+					count++;
+				}
+			}
 		}
 		return count;
 	}
