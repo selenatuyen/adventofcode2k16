@@ -12,7 +12,29 @@ public class Day8{
 		return screen;
 	}
 
-	public static char[][] rotate(char[][] screen, String dim, int num, int val){
+	public static char[][] rotate(char[][] screen, char dim, int num, int val, int x, int y){
+		if(dim == 'y'){
+
+		}
+		else if(dim == 'x'){
+			for(int j = 0; j < x; j++){
+				if(j == num){
+					for(int i = 0; i < y; i++){
+						char temp;
+						if(i == 0){
+							temp = screen[i][j];
+							screen[i][j] = screen[y-val][x-val];
+							screen[i+val][j+val] = temp;
+						}
+						else{
+							temp = screen[i][j];
+							screen[i][j] = screen[i-val][j-val];
+						}
+
+					}
+				}
+			}	
+		}
 		return screen;
 	}
 
@@ -27,13 +49,17 @@ public class Day8{
 			}
 		}
 		displayScreen(screen, x, y);
-		char[] com = parseCommand(input.get(0));
-		if(com[0] == 'r'){
-			screen = rect(screen, Character.getNumericValue(com[1]), Character.getNumericValue(com[2]));
-		}
-		displayScreen(screen, x, y);
-		com = parseCommand(input.get(1));
+		for(String s : input){
 
+			char[] com = parseCommand(s);
+			if(com[0] == 'r'){
+				screen = rect(screen, Character.getNumericValue(com[1]), Character.getNumericValue(com[2]));
+			}
+			else if(com[0] == 'x' || com[0] == 'y'){
+				screen = rotate(screen, com[0], Character.getNumericValue(com[1]), Character.getNumericValue(com[2]), x, y);
+			}
+			displayScreen(screen, x, y);
+		}
 		return count;
 	}
 
