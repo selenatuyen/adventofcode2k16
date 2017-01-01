@@ -12,7 +12,7 @@ public class Day8{
 		return screen;
 	}
 
-	public static char[][] rotate(char[][] screen, String row, String col, int x, int y, int val){
+	public static char[][] rotate(char[][] screen, String dim, int num, int val){
 		return screen;
 	}
 
@@ -32,6 +32,8 @@ public class Day8{
 			screen = rect(screen, Character.getNumericValue(com[1]), Character.getNumericValue(com[2]));
 		}
 		displayScreen(screen, x, y);
+		com = parseCommand(input.get(1));
+
 		return count;
 	}
 
@@ -41,18 +43,17 @@ public class Day8{
 		if(command.contains("rect")){
 			cmd[0] = 'r';
 			String[] split = command.split(" ");
-			// for(String s : split){
-			// 	System.out.println("split : " + s);
-			// }
 			String[] dim = split[1].split("x");
-			// for(String s: dim){
-			// 	System.out.println("dim : " + s);
-			// }
 			cmd[1] = dim[0].charAt(0);
 			cmd[2] = dim[1].charAt(0);
-			// for(char c: cmd){
-			// 	System.out.println("cmd : " + c);
-			// }
+		}
+		else if(command.contains("rotate")){
+			String[] split = command.split(" ");
+			String[] coord = split[2].split("=");
+			cmd[0] = coord[0].charAt(0);
+			cmd[1] = coord[1].charAt(0);
+			cmd[2] = split[4].charAt(0);
+			// System.out.println("rotate " + cmd[0] + " " + cmd[1] + " by " + cmd[2]);
 		}
 		return cmd;
 	}
